@@ -13,11 +13,11 @@ function JupyterGradedXBlock(runtime, element, context) {
         } else {
             if (data.autograded_err != null) {
                 student.addClass("my-alert my-alert-warning");
-				student.html("Notebook Successfully Uploaded and Scored. " +
-                    "Please note the following error:<br><br>" + data.autograded_err);
+				student.html(JUPYTERGRADEDXBLOCKI18N.gettext("Notebook Successfully Uploaded and Scored. ") +
+                JUPYTERGRADEDXBLOCKI18N.gettext("Please note the following error:<br><br>") + data.autograded_err);
             } else {
 				student.addClass("my-alert my-alert-success");
-				student.html("Notebook Successfully Uploaded and Scored<br><br>Please see results below");
+				student.html(JUPYTERGRADEDXBLOCKI18N.gettext("Notebook Successfully Uploaded and Scored<br><br>Please see results below"));
             }
             $('#student_score_'+id).html(data.score);
             $('#student_attempts_'+id).html(data.attempts);
@@ -46,7 +46,7 @@ function JupyterGradedXBlock(runtime, element, context) {
         var result = $('#student_upload_result_'+id);
         result[0].className = '';
         result.addClass("my-alert my-alert-danger");
-        result.html("An error has occurred while uploading your notebook.<br><br>Please contact your instructor.");
+        result.html(JUPYTERGRADEDXBLOCKI18N.gettext("An error has occurred while uploading your notebook.<br><br>Please contact your instructor."));
         console.log("Upload Error Occurred: ");
         console.log(jqxhr.responseText);
         $("#student_upload_"+id).prop("disabled", false);
@@ -66,7 +66,7 @@ function JupyterGradedXBlock(runtime, element, context) {
         var result = $('#student_upload_result_'+id);
         result[0].className = '';
         result.addClass("my-alert my-alert-info");
-        result.html("Uploading and evaluating iPython notebook ... Please Wait");
+        result.html(JUPYTERGRADEDXBLOCKI18N.gettext("Uploading and evaluating iPython notebook ... Please Wait"));
 
         var f = ($('#student_file_'+id).prop('files')[0]);
         var data = new FormData();
@@ -74,7 +74,7 @@ function JupyterGradedXBlock(runtime, element, context) {
         $.ajax({
             url: studentUrl,
             type: 'POST',
-            data: data, 
+            data: data,
             cache: false,
             contentType: false,
             processData: false,

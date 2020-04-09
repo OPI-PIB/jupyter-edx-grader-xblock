@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Emilia Dolega <emilia.dolega@opi.org.pl>, 2020
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-08 16:46+0200\n"
+"PO-Revision-Date: 2020-04-07 12:59+0000\n"
+"Last-Translator: Emilia Dolega <emilia.dolega@opi.org.pl>, 2020\n"
+"Language-Team: Polish (https://www.transifex.com/navoica/teams/104253/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: xblock_jupyter_graded/public/js/author.js:16
+#: xblock_jupyter_graded/static/js/author.js:16
+msgid "Notebook Successfully Uploaded"
+msgstr "Pomyślnie przesłano notatnik"
+
+#: xblock_jupyter_graded/public/js/author.js:45
+#: xblock_jupyter_graded/static/js/author.js:45
+msgid "Requirements Successfully Uploaded"
+msgstr "Wymagania zostały pomyślnie zmienione"
+
+#: xblock_jupyter_graded/public/js/author.js:59
+#: xblock_jupyter_graded/public/js/author.js:69
+#: xblock_jupyter_graded/static/js/author.js:59
+#: xblock_jupyter_graded/static/js/author.js:69
+msgid ""
+"An error occurred while uploading.<br><br>Please see the javascript console "
+"and/or EdX CMS Logs for more information."
+msgstr ""
+"Wystąpił błąd podczas przesyłania<br><br>. Więcej informacji można znaleźć w"
+" javascript console lub/i logach edX CMS."
+
+#: xblock_jupyter_graded/public/js/author.js:92
+#: xblock_jupyter_graded/static/js/author.js:92
+msgid "Uploading and evaluating iPython Notebook ... Please Wait"
+msgstr "Przesyłanie i ewaluacja notatnika Python... Proszę czekać"
+
+#: xblock_jupyter_graded/public/js/author.js:119
+#: xblock_jupyter_graded/static/js/author.js:119
+msgid "Uploading Requirements and building environment ... Please Wait"
+msgstr "Dodawanie wymagań i budowanie środowiska... Proszę czekać"
+
+#: xblock_jupyter_graded/public/js/student.js:16
+#: xblock_jupyter_graded/static/js/student.js:16
+msgid "Notebook Successfully Uploaded and Scored. "
+msgstr "Pomyślnie przesłano i oceniono notatnik."
+
+#: xblock_jupyter_graded/public/js/student.js:17
+#: xblock_jupyter_graded/static/js/student.js:17
+msgid "Please note the following error:<br><br>"
+msgstr "Zwróć uwagę na następujący błąd: <br><br>"
+
+#: xblock_jupyter_graded/public/js/student.js:20
+#: xblock_jupyter_graded/static/js/student.js:20
+msgid ""
+"Notebook Successfully Uploaded and Scored<br><br>Please see results below"
+msgstr ""
+"Pomyślnie przesłano i oceniono notatnik <br><br> Zobacz wyniki poniżej"
+
+#: xblock_jupyter_graded/public/js/student.js:49
+#: xblock_jupyter_graded/static/js/student.js:49
+msgid ""
+"An error has occurred while uploading your notebook.<br><br>Please contact "
+"your instructor."
+msgstr ""
+"Wystąpił błąd podczas przesyłania notatnika<br><br>Skontaktuj się ze swoim "
+"prowadzącym."
+
+#: xblock_jupyter_graded/public/js/student.js:69
+#: xblock_jupyter_graded/static/js/student.js:69
+msgid "Uploading and evaluating iPython notebook ... Please Wait"
+msgstr "Przesyłanie i ocenianie notatnika Python ... Proszę czekać"

@@ -1,0 +1,347 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Emilia Dolega <emilia.dolega@opi.org.pl>, 2020
+# krystianlygas <krystian.lygas@gmail.com>, 2020
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-08 16:46+0200\n"
+"PO-Revision-Date: 2020-04-07 11:52+0000\n"
+"Last-Translator: krystianlygas <krystian.lygas@gmail.com>, 2020\n"
+"Language-Team: Polish (https://www.transifex.com/navoica/teams/104253/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: xblock_jupyter_graded/file_manager.py:105
+msgid ""
+"No Solution Cells Found in uploaded notebook! Are you sure this is the "
+"instructor version?"
+msgstr ""
+"W przesłanym pliku nie znaleziono części z rozwiązaniem! Czy na pewno jest "
+"to wersja instruktorska?"
+
+#: xblock_jupyter_graded/nbgrader_utils.py:192
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:396
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:428
+msgid "No File Attached"
+msgstr "Brak załącznika"
+
+#: xblock_jupyter_graded/scorable.py:47
+#, python-brace-format
+msgid "Problem does not support rescoring: %{location}s"
+msgstr "Zadanie nie pozwala na ponowne ocenianie: %{location}"
+
+#: xblock_jupyter_graded/scorable.py:50
+#, python-brace-format
+msgid "Cannot rescore unanswered problem: %{location}s"
+msgstr "Nie można ponownie ocenić zadania bez odpowiedzi: %{location}"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:3
+msgid "Instructor Section"
+msgstr "Panel prowadzącego"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:4
+msgid "Python Virtual Environment"
+msgstr "Wirtualne Środowisko Python"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:5
+msgid "Select a requirements.txt file to upload."
+msgstr "Wybierz plik do udostępnienia w rozszerzeniu wymagania.txt "
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:7
+msgid ""
+"Only include packages that are actually imported from within the notebook "
+"itself"
+msgstr ""
+"Uwzględnij tylko pakiety, które faktycznie zostały zaimportowane z "
+"notatnika."
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:8
+msgid "There is a single Virtual Environment for each course"
+msgstr "Dla każdego kursu istnieje jedno Wirtualne Środowisko"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:9
+msgid ""
+"The uploaded requirements.txt will overwrite the current requirements for "
+"this course, so please be sure to include all packages required for this "
+"course"
+msgstr ""
+"Udostępniony plik wymagania.txt zastąpi istniejące wymagania dla tego kursu,"
+" więc pamiętaj, aby uwzględnić wszystkie pakiety wymagane dla tego kursu"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:15
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:40
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:82
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:18
+msgid "Upload"
+msgstr "Prześlij"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:22
+msgid "Installed Packages"
+msgstr "Zainstalowane pakiety"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:28
+msgid "No Packages Specified"
+msgstr "Brak wyszczególnionych pakietów"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:35
+msgid "Instructor Notebook Upload"
+msgstr "Prześlij Notatnik Prowadzącego"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:36
+msgid "Select an Instructor Notebook to upload"
+msgstr "Wybierz Notatnik Prowadzącego do przesłania"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:47
+msgid "WARNING"
+msgstr "UWAGA"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:47
+msgid ""
+"If you re-upload a new notebook after it has already been published to the "
+"student you should use a different name for the new notebook (version "
+"suffix, date, etc), republish, and notify students they must re-download the"
+" updated notebook. Errors will occur for the student if there is a mismatch "
+"in cell id's between the uploaded and instructor notebooks"
+msgstr ""
+"Jeśli ponownie przesyłasz nowy notatnik po tym, jak został on już "
+"opublikowany, powinieneś zmienić nazwę notatnika na inną (numer wersji, data"
+" itp.), opublikować go jeszcze raz i powiadomić studentów, że muszą ponownie"
+" pobrać zaktualizowany notatnik. W przeciwnym razie, studentom pojawią się "
+"błędy wynikające z niedopasowania w identyfikatorze komórki pomiędzy starymi"
+" a nowymi notatnikami prowadzącego"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:50
+msgid "Uploaded Notebook Details"
+msgstr "Szczegóły udostępnionego Notatnika"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:51
+msgid "Notebook Link"
+msgstr "Link do Notatnika"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:53
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:99
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:101
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:35
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:37
+msgid "Download"
+msgstr "Pobierz"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:55
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:73
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:9
+msgid "No Notebook Uploaded"
+msgstr "Nie udostępniono Notatnika"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:58
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:78
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:14
+msgid "Notebook Name"
+msgstr "Nazwa Notatnika"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:59
+msgid "Max Possible Score"
+msgstr "Maksymalny wynik możliwy do uzyskania"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:60
+msgid "Uploaded At"
+msgstr "Przesłano o"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:67
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:3
+msgid "Instructions"
+msgstr "Instrukcje"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:71
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:7
+msgid "Download Student Notebook"
+msgstr "Pobierz Notatnik Studenta"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:77
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:13
+msgid "Student Upload"
+msgstr "Plik studenta"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:89
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:25
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:28
+msgid "Results"
+msgstr "Wyniki"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:92
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:94
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:30
+msgid "Attempts"
+msgstr "Podejścia"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:92
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:28
+msgid "Unlimited"
+msgstr "Nieograniczone"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:96
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:32
+msgid "Last Submitted"
+msgstr "Ostatnio przesłane"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:99
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:101
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:35
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:37
+msgid "Autograded Notebook"
+msgstr "Automatycznie oceniany Notatnik"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:105
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/author_view.html:113
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:41
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/student_view.html:49
+msgid "Total Score"
+msgstr "Łączny wynik "
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/section_scores.html:2
+msgid "Section Scores"
+msgstr "Moduł z wynikami"
+
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/section_scores.html:5
+#: xblock_jupyter_graded/templates/xblock_jupyter_graded/section_scores.html:6
+msgid "Cell Name"
+msgstr "Nazwa komórki"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:40
+msgid "Display Name"
+msgstr "Wyświetlana nazwa"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:41
+msgid "Graded Jupyter Notebook"
+msgstr "Klasyfikowany Notatnik Jupyter "
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:43
+msgid "Name of this XBlock"
+msgstr "Nazwa tego XBlocka"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:47
+msgid "Instructions displayed to Student"
+msgstr "Instrukcje wyświetlane studentowi"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:49
+msgid "Student Instructions"
+msgstr "Instrukcje dla studenta"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:54
+msgid "Max number of allowed submissions (0 = unlimited)"
+msgstr "Maksymalna liczba możliwych podejść (0 = nieograniczona)"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:56
+msgid "Allowed Submissions"
+msgstr "Dozwolone podejścia"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:61
+msgid "Max seconds to wait for each cell to execute"
+msgstr ""
+"Maksymalna ilość sekund, którą należy odczekać na wykonanie danej komórki"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:63
+msgid "Cell Timeout (s)"
+msgstr "Limit czasowy komórki (s)"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:68
+msgid "Max allowable file size of student uploaded file (Bytes)"
+msgstr ""
+"Maksymalny dopuszczalny rozmiar pliku przesłanego przez studenta (bajty)"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:70
+msgid "Max File Size (B)"
+msgstr "Maksymalny rozmiar pliku (bajty)"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:75
+msgid "If True, allows network access from student notebook"
+msgstr "Jeśli True, umożliwia dostęp do sieci z notatnika studenta"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:77
+msgid "Network Allowed"
+msgstr "Użycie sieci dozwolone"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:82
+msgid ""
+"If True, allows student to download .html version of their autograded "
+"notebook"
+msgstr ""
+"Jeśli True, umożliwia pobranie automatycznie ocenionego notatnika w wersji "
+".html"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:84
+msgid "Allow Graded NB Download"
+msgstr "Pozwól na pobranie ocenionego notatnika"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:90
+msgid "filename of the notebook"
+msgstr "Nazwa notatnika"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:96
+msgid "UTC datetime the notebook was uploaded"
+msgstr "Data i czas UTC kiedy notatnik został przesłany"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:102
+msgid "Max possible score attainable"
+msgstr "Maksymalny wynik możliwy do uzyskania"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:109
+msgid "Number of times student has submitted problem"
+msgstr "Liczba podejść studenta do zadania"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:115
+msgid "Student Score"
+msgstr "Wynik studenta"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:121
+msgid "Student Scores per section"
+msgstr "Wynik studenta z podziałem na sekcje"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:127
+msgid "UTC datetime student last submitted notebook"
+msgstr "Data i czas UTC kiedy student przesłał najnowszy notatnik"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:168
+msgid "Not Yet Submitted"
+msgstr "Jeszcze nie przesłano"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:399
+#, python-format
+msgid ""
+"File (%(file_size)i B) exceeds max allowed file size of %(max_file_size)i B"
+msgstr ""
+"Plik (%(file_size)i B) przekracza maksymalny dozwolony rozmiar pliku: "
+"%(max_file_size)i B"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:403
+msgid "Maximum allowed attempts reached"
+msgstr "Osiągnięto maksymalną dozwoloną liczbę podejść"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:406
+#, python-format
+msgid "File extension must be .ipynb, not %(filename)s"
+msgstr "Plik musi kończyć się rozszerzeniem .ipynb, nie %(filename)s"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:409
+#, python-format
+msgid "Uploaded notebook (%(filename)s) must be named: %(nb_name)s)"
+msgstr "Przesłany notatnik (%(filename)s) musi mieć nazwę: %(nb_name)s)"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:412
+#, python-format
+msgid "Unable to submit past due date: %(due)s"
+msgstr "Nie można przesłać po dacie: %(due)s"
+
+#: xblock_jupyter_graded/xblock_jupyter_graded.py:431
+msgid "File extension must be .ipynb, not %(filename)"
+msgstr "Plik musi kończyć się rozszerzeniem .ipynb, nie %(filename)"

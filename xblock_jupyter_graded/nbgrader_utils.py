@@ -1,5 +1,5 @@
 import json
-import logging 
+import logging
 import os
 import pkg_resources
 from subprocess import Popen, PIPE
@@ -10,14 +10,15 @@ from config import (
 import file_manager as fm
 import container_manager as cm
 from exceptions import DockerContainerError, ValidationError
+from utils import _
 
 log = logging.getLogger(__name__)
 
 
 def normalize_course_id(course_id):
     """Make course_id directory naming name worthy
-    
-    convert: 
+
+    convert:
         from: course-v1:course+name
         to: course_name
         """
@@ -26,9 +27,9 @@ def normalize_course_id(course_id):
 
 def normalize_unit_id(unit_id):
     """Make unit_id directory name worthy
-    
-    convert: 
-        from: block-v1:course+type@vertical+block@digits 
+
+    convert:
+        from: block-v1:course+type@vertical+block@digits
         to: vertical_block_digits
         """
     return "_".join(unit_id.split("@")[1:]).replace("+", "_")
@@ -58,7 +59,7 @@ def generate_student_nb(course_id, unit_id, f):
 
 def autograde_notebook(username, course_id, unit_id, f, cell_timeout=15, allow_net=False):
     """Runs nbgrader autograde and returns student score
-    
+
     Requires normalized course_id/unit_id
     """
 
@@ -87,7 +88,7 @@ def _run_assign_container(nb_filename, course_id, unit_id):
         'sudo', '-u', 'jupyter', 'docker', 'run', '-t',
         '-v', "{}:{}".format(host_source_path, cont_source_path),
         '-v', "{}:{}".format(host_release_path, cont_release_path),
-        course_id.lower(), 'python', '/home/jupyter/run_grader.py', 
+        course_id.lower(), 'python', '/home/jupyter/run_grader.py',
         '--cmd', 'assign',
         '--nbname', nb_filename,
     ]
@@ -107,13 +108,13 @@ def _run_assign_container(nb_filename, course_id, unit_id):
     return results['max_score']
 
 
-def _run_autograde_container(nb_filename, course_id, unit_id, username, 
+def _run_autograde_container(nb_filename, course_id, unit_id, username,
         cell_timeout, allow_net):
     """Runs autograde for notebook and student, returning student score
-    
+
     Requires normalized course_id/unit_id
     """
-    # Create student based directories 
+    # Create student based directories
     fm.create_autograded_dir(course_id, unit_id, username)
     fm.create_feedback_dir(course_id, unit_id, username)
 
@@ -155,12 +156,12 @@ def _run_autograde_container(nb_filename, course_id, unit_id, username,
             cmd += ['--network', 'none']
 
         cmd += [
-            course_id.lower(), 'python', '/home/jupyter/run_grader.py', 
+            course_id.lower(), 'python', '/home/jupyter/run_grader.py',
             '--cmd', 'grade',
             '--nbname', nb_filename,
             '--username', username,
         ]
-        
+
         p = Popen(cmd, stderr=PIPE, stdout=PIPE)
         out, err = p.communicate()
 
@@ -172,7 +173,7 @@ def _run_autograde_container(nb_filename, course_id, unit_id, username,
     result_fn = "{}_results.json".format(nb_name)
     with open(os.path.join(host_autograded_path, result_fn), 'r') as f:
         results = json.load(f)
-    
+
     if not results['success']:
         raise DockerContainerError(results['err'])
     return {
@@ -180,15 +181,15 @@ def _run_autograde_container(nb_filename, course_id, unit_id, username,
         'section_scores': results['section_scores'],
         'autograded_err': results['autograded_err']
     }
-    
+
 
 def update_requirements(course_id, f):
     """Updates Requirements model file this course_id"""
     course = normalize_course_id(course_id)
     try:
-        packages = f.file.readlines() 
+        packages = f.file.readlines()
     except AttributeError:
-        raise ValidationError("No File Attached")
+        raise ValidationError(_("No File Attached"))
     manager = cm.ContainerManager(course)
     manager.set_requirements(packages)
     manager.build_container()

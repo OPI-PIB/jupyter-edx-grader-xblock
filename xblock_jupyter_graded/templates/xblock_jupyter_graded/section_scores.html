@@ -1,8 +1,9 @@
-<p><b>Section Scores:</b></p>
+{% load i18n %}
+<p><b>{% trans "Section Scores" %}:</b></p>
 <table class="section-scores">
     <tr>
-        <th class="text-center">Cell Name</th>
-        <th class="text-center">Score</th>
+        <th class="text-center">{% trans "Cell Name" %}</th>
+        <th class="text-center">{% trans "Cell Name" %}</th>
     <tr>
 {% for section in section_scores %}
     {% if section.failed_tests %}

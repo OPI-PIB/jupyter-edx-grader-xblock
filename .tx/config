@@ -1,0 +1,14 @@
+[main]
+host = https://www.transifex.com
+
+[navoica-xblocks.xblock-jupyter-graded]
+source_file = xblock_jupyter_graded/translations/en/LC_MESSAGES/text.po
+file_filter = xblock_jupyter_graded/translations/<lang>/LC_MESSAGES/text.po
+source_lang = en
+type = PO
+
+[navoica-xblocks.xblock-jupyter-graded-js]
+source_file = xblock_jupyter_graded/translations/en/LC_MESSAGES/djangojs.po
+file_filter = xblock_jupyter_graded/translations/<lang>/LC_MESSAGES/djangojs.po
+source_lang = en
+type = PO

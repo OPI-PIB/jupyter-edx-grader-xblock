@@ -7,6 +7,7 @@ import nbformat
 import shutil
 import tempfile
 
+from utils import _
 from exceptions import ValidationError
 from config import (
     RELEASE, SUBMITTED, SOURCE, AUTOGRADED, FEEDBACK, EDX_ROOT
@@ -78,10 +79,10 @@ def save_student_nb(username, course_id, unit_id, f):
 
 def validate_instructor_nb(nb_file):
     """Ensures there is at least one BEGIN SOLUTION TAG in uploaded nb
-    
+
     Should prevent accidentally uploading a student NB
     """
-    
+
     solution_text = "BEGIN SOLUTION"
     found = False
 
@@ -101,20 +102,20 @@ def validate_instructor_nb(nb_file):
             log.info("Found solution cell")
             return
 
-    raise ValidationError("No Solution Cells Found in uploaded notebook!"\
-            " Are you sure this is the instructor version?")
-    
+    raise ValidationError(_("No Solution Cells Found in uploaded notebook!"\
+            " Are you sure this is the instructor version?"))
+
 
 @contextmanager
 def create_temp_config(config_lines):
     """Creates a temp nbgrader_config like file from `config_lines` list
-    
+
     File is removed when context manager exits.
 
-    Each `config_lines` list entry should look like an nbgrader_config.py 
-    line without the leading `c`. 
-    
-    Examples: 
+    Each `config_lines` list entry should look like an nbgrader_config.py
+    line without the leading `c`.
+
+    Examples:
         ExecutePreprocessor.timeout = 5
         ClearSolutions.text_stub = 'PUT YOUR ANSWER HERE'
     """
@@ -134,9 +135,9 @@ def create_temp_config(config_lines):
         log.warning("Temp config file: {} did not exist".format(fd.name))
 
 
-        
 
 
 
-    
+
+
 

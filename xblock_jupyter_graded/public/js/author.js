@@ -13,7 +13,7 @@ function JupyterGradedXBlock(runtime, element, context) {
 
         } else {
             inst.addClass("my-alert my-alert-success");
-            inst.html("Notebook Successfully Uploaded");
+            inst.html(JUPYTERGRADEDXBLOCKI18N.gettext("Notebook Successfully Uploaded"));
             $('#nb_name_'+id).html(data.nb_name);
             $('#nb_upload_date_'+id).html(data.nb_upload_date);
             $('#max_nb_score_'+id).html(data.max_score);
@@ -42,7 +42,7 @@ function JupyterGradedXBlock(runtime, element, context) {
         } else {
             req.className = '';
             req.addClass("my-alert my-alert-success");
-            req.html("Requirements Successfully Uploaded");
+            req.html(JUPYTERGRADEDXBLOCKI18N.gettext("Requirements Successfully Uploaded"));
             $('#requirements_'+id).html(data.requirements);
         }
     }
@@ -56,7 +56,7 @@ function JupyterGradedXBlock(runtime, element, context) {
         var result = $('#inst_upload_result_'+id);
         result[0].className = '';
         result.addClass("my-alert my-alert-danger");
-        result.html("An error occurred while uploading.<br><br>Please see the javascript console and/or EdX CMS Logs for more information.");
+        result.html(JUPYTERGRADEDXBLOCKI18N.gettext("An error occurred while uploading.<br><br>Please see the javascript console and/or EdX CMS Logs for more information."));
     }
 
     var req_upload_error = function(jqxhr, text) {
@@ -66,7 +66,7 @@ function JupyterGradedXBlock(runtime, element, context) {
         console.log(jqxhr.responseText);
         result[0].className = '';
         result.addClass("my-alert my-alert-danger");
-        result.html("An error occurred while uploading.<br><br>Please see the javascript console and/or EdX CMS Logs for more information.");
+        result.html(JUPYTERGRADEDXBLOCKI18N.gettext("An error occurred while uploading.<br><br>Please see the javascript console and/or EdX CMS Logs for more information."));
     }
 
     var inst_upload_complete = function(data, text) {
@@ -89,7 +89,7 @@ function JupyterGradedXBlock(runtime, element, context) {
         var result = $('#inst_upload_result_'+id);
         result[0].className = '';
         result.addClass("my-alert my-alert-info");
-        result.html("Uploading and evaluating iPython Notebook ... Please Wait");
+        result.html(JUPYTERGRADEDXBLOCKI18N.gettext("Uploading and evaluating iPython Notebook ... Please Wait"));
 
         var f = ($('#instructor_file_'+id).prop('files')[0]);
         var data = new FormData();
@@ -97,7 +97,7 @@ function JupyterGradedXBlock(runtime, element, context) {
         $.ajax({
             url: instructorUrl,
             type: 'POST',
-            data: data, 
+            data: data,
             cache: false,
             contentType: false,
             processData: false,
@@ -116,7 +116,7 @@ function JupyterGradedXBlock(runtime, element, context) {
         var result = $('#req_upload_result_'+id);
         result[0].className = '';
         result.addClass("my-alert my-alert-info");
-        result.html("Uploading Requirements and building environment ... Please Wait");
+        result.html(JUPYTERGRADEDXBLOCKI18N.gettext("Uploading Requirements and building environment ... Please Wait"));
 
         var f = ($('#requirements_file_'+id).prop('files')[0]);
         var data = new FormData();
@@ -124,7 +124,7 @@ function JupyterGradedXBlock(runtime, element, context) {
         $.ajax({
             url: requirementsUrl,
             type: 'POST',
-            data: data, 
+            data: data,
             cache: false,
             contentType: false,
             processData: false,

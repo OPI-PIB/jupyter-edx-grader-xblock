@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-08 16:46+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: xblock_jupyter_graded/public/js/author.js:16
+#: xblock_jupyter_graded/static/js/author.js:16
+msgid "Notebook Successfully Uploaded"
+msgstr ""
+
+#: xblock_jupyter_graded/public/js/author.js:45
+#: xblock_jupyter_graded/static/js/author.js:45
+msgid "Requirements Successfully Uploaded"
+msgstr ""
+
+#: xblock_jupyter_graded/public/js/author.js:59
+#: xblock_jupyter_graded/public/js/author.js:69
+#: xblock_jupyter_graded/static/js/author.js:59
+#: xblock_jupyter_graded/static/js/author.js:69
+msgid ""
+"An error occurred while uploading.<br><br>Please see the javascript console "
+"and/or EdX CMS Logs for more information."
+msgstr ""
+
+#: xblock_jupyter_graded/public/js/author.js:92
+#: xblock_jupyter_graded/static/js/author.js:92
+msgid "Uploading and evaluating iPython Notebook ... Please Wait"
+msgstr ""
+
+#: xblock_jupyter_graded/public/js/author.js:119
+#: xblock_jupyter_graded/static/js/author.js:119
+msgid "Uploading Requirements and building environment ... Please Wait"
+msgstr ""
+
+#: xblock_jupyter_graded/public/js/student.js:16
+#: xblock_jupyter_graded/static/js/student.js:16
+msgid "Notebook Successfully Uploaded and Scored. "
+msgstr ""
+
+#: xblock_jupyter_graded/public/js/student.js:17
+#: xblock_jupyter_graded/static/js/student.js:17
+msgid "Please note the following error:<br><br>"
+msgstr ""
+
+#: xblock_jupyter_graded/public/js/student.js:20
+#: xblock_jupyter_graded/static/js/student.js:20
+msgid ""
+"Notebook Successfully Uploaded and Scored<br><br>Please see results below"
+msgstr ""
+
+#: xblock_jupyter_graded/public/js/student.js:49
+#: xblock_jupyter_graded/static/js/student.js:49
+msgid ""
+"An error has occurred while uploading your notebook.<br><br>Please contact "
+"your instructor."
+msgstr ""
+
+#: xblock_jupyter_graded/public/js/student.js:69
+#: xblock_jupyter_graded/static/js/student.js:69
+msgid "Uploading and evaluating iPython notebook ... Please Wait"
+msgstr ""

@@ -2,6 +2,7 @@
 import inspect
 import json
 import logging
+
 import os
 import pkg_resources
 from urllib import urlencode
@@ -9,8 +10,9 @@ from webob import Response
 
 from django.core.urlresolvers import reverse
 from django.template import Template, Context
-from django.utils import timezone, dateparse
+from django.utils import timezone, dateparse, translation
 import nbgrader_utils as nbu
+from utils import _
 
 from scorable import ScorableXBlockMixin, Score
 
@@ -26,7 +28,7 @@ from rest.urls import app_name
 log = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)
 
-
+@XBlock.needs("i18n")
 @XBlock.needs("user")
 class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
         XBlock, StudioEditableBlock):
@@ -36,121 +38,136 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
 
     # ------- External, Editable Fields -------
     display_name = String(
-        display_name="Display Name", 
-        default="Graded Jupyter Notebook",
+        display_name=_("Display Name"),
+        default=_("Graded Jupyter Notebook"),
         scope=Scope.settings,
-        help="Name of this XBlock" 
+        help=_("Name of this XBlock")
     )
 
     instructions = String(
-        help="Instructions displayed to Student",
+        help=_("Instructions displayed to Student"),
         scope=Scope.content,
-        display_name="Student Instructions",
+        display_name=_("Student Instructions"),
         multiline_editor=True,
     )
 
     max_attempts = Integer(
-        help="Max number of allowed submissions (0 = unlimited)",
+        help=_("Max number of allowed submissions (0 = unlimited)"),
         scope=Scope.settings,
-        display_name="Allowed Submissions",
+        display_name=_("Allowed Submissions"),
         default=0
     )
 
     cell_timeout = Integer(
-        help="Max seconds to wait for each cell to execute",
+        help=_("Max seconds to wait for each cell to execute"),
         scope=Scope.settings,
-        display_name="Cell Timeout (s)",
+        display_name=_("Cell Timeout (s)"),
         default=15
     )
 
     max_file_size = Integer(
-        help="Max allowable file size of student uploaded file (Bytes)",
+        help=_("Max allowable file size of student uploaded file (Bytes)"),
         scope=Scope.settings,
-        display_name="Max File Size (B)",
+        display_name=_("Max File Size (B)"),
         default=None
     )
 
     allow_network = Boolean (
-        help="If True, allows network access from student notebook",
+        help=_("If True, allows network access from student notebook"),
         scope=Scope.settings,
-        display_name="Network Allowed",
+        display_name=_("Network Allowed"),
         default=False
     )
 
     allow_graded_dl = Boolean (
-        help="If True, allows student to download .html version of their autograded notebook",
+        help=_("If True, allows student to download .html version of their autograded notebook"),
         scope=Scope.settings,
-        display_name="Allow Graded NB Download",
+        display_name=_("Allow Graded NB Download"),
         default=False
     )
 
     # ------- Internal Fields -------
     nb_name = String(
-        help="filename of the notebook",
+        help=_("filename of the notebook"),
         scope=Scope.settings,
         default=""
     )
 
     nb_upload_datetime = String(
-        help="UTC datetime the notebook was uploaded",
+        help=_("UTC datetime the notebook was uploaded"),
         scope=Scope.settings,
         default=""
     )
 
     raw_possible = Float(
-        help="Max possible score attainable",
+        help=_("Max possible score attainable"),
         scope=Scope.settings,
         default=0.0
     )
 
     # ------- Internal Student Fields -------
     student_attempts = Integer(
-        help="Number of times student has submitted problem",
+        help=_("Number of times student has submitted problem"),
         scope=Scope.user_state,
         default=0
     )
 
     student_score = Float(
-        help="Student Score",
+        help=_("Student Score"),
         scope=Scope.user_state,
         default=0
     )
 
     student_section_scores = List(
-        help="Student Scores per section",
+        help=_("Student Scores per section"),
         scope=Scope.user_state,
         default=[]
     )
 
     student_submitted_dt = String(
-        help="UTC datetime student last submitted notebook",
+        help=_("UTC datetime student last submitted notebook"),
         scope=Scope.user_state,
         default=""
     )
 
-    editable_fields = ('display_name', 'instructions', 'max_attempts', 
+    editable_fields = ('display_name', 'instructions', 'max_attempts',
         'allow_network', 'cell_timeout', 'allow_graded_dl', 'max_file_size')
 
+    skip_flag = False
     # ----------- ScorableXBlockMixin Methods -----------
     def has_submitted_answer(self):
         return self.student_attempts > 0
 
     def get_score(self):
-        return Score(raw_earned=self.student_score, 
+        return Score(raw_earned=self.student_score,
             raw_possible=self.raw_possible)
 
     def set_score(self, score):
         self.student_score = score.raw_earned
 
     def calculate_score(self):
-        return Score(raw_earned=self.student_score, 
+        return Score(raw_earned=self.student_score,
             raw_possible=self.raw_possible)
+
+    def get_translation_content(self):
+        try:
+            return self.resource_string('public/js/translations/{lang}/djangojs.js'.format(
+                lang=translation.get_language(),
+            ))
+        except IOError:
+            return self.resource_string('public/js/translations/en/djangojs.js')
+
+    @staticmethod
+    def resource_string(path):
+        """Handy helper for getting resources from our kit."""
+        data = pkg_resources.resource_string(__name__, path)
+        return data.decode("utf8")
 
     # ----------- Views -----------
     def student_view(self, context=None):
         """View shown to the students in the LMS"""
         # Setup student submitted datetime
-        submitted_dt = "Not Yet Submitted"
+        submitted_dt = _("Not Yet Submitted")
         if self.student_submitted_dt:
             dt = dateparse.parse_datetime(self.student_submitted_dt)
             submitted_dt = dt.strftime("%Y-%m-%d %H:%M:%S") + " UTC"
@@ -159,8 +176,9 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
         disabled_str = ''
         if self._is_past_due() or (self.max_attempts > 0 and self.student_attempts >= self.max_attempts):
             disabled_str = 'disabled'
+        self.init_emulation()
+        fragment = Fragment()
 
-        # HTML Template and Context
         ctx_data = {
             'title': self.display_name,
             'student_disabled': disabled_str,
@@ -175,21 +193,26 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
             'student_download_url': self._get_nb_url('student'),
             'xblock_id': self._get_xblock_loc(),
         }
+
         if self.allow_graded_dl and self.student_attempts > 0:
             ctx_data['autograded_url'] = self._get_nb_url('autograded')
 
-        html = loader.render_django_template(
+        fragment.add_content(loader.render_django_template(
             'templates/xblock_jupyter_graded/student_view.html',
-            ctx_data
-        )
+            context= ctx_data,
+            i18n_service=self.runtime.service(self, "i18n"),
+        ))
+        fragment.add_css(loader.load_unicode('public/css/styles.css'))
+        fragment.add_javascript(loader.load_unicode('public/js/student.js'))
+        fragment.add_javascript(self.get_translation_content())
 
-        frag = Fragment(html)
-        frag.add_javascript(loader.load_unicode('/static/js/student.js'))
-	frag.add_css(loader.load_unicode('static/css/styles.css'))
-        frag.initialize_js('JupyterGradedXBlock', {'xblock_id': self._get_xblock_loc()})
+        fragment.initialize_js('JupyterGradedXBlock', {'xblock_id': self._get_xblock_loc()})
 
-        return frag
-    
+        return fragment
+
+        # HTML Template and Context
+
+
     def author_view(self, context=None):
         """View shown in the CMS XBlock preview"""
         # Setup last uploaded datetime
@@ -198,6 +221,9 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
             dt = dateparse.parse_datetime(self.nb_upload_datetime)
             upload_dt = dt.strftime("%Y-%m-%d %H:%M:%S") + " UTC"
         req = nbu.get_requirements(str(self.course_id))
+
+        self.init_emulation()
+        fragment = Fragment()
 
         # HTML Template and Context
         ctx_data = {
@@ -216,19 +242,26 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
             'instructor_download_url': self._get_nb_url('instructor'),
             'xblock_id': self._get_xblock_loc(),
         }
-        html = loader.render_django_template('templates/xblock_jupyter_graded/author_view.html', ctx_data)
 
-        frag = Fragment(html)
-        frag.add_javascript(loader.load_unicode("/static/js/author.js"))
-	frag.add_css(loader.load_unicode('static/css/styles.css'))
-        frag.initialize_js('JupyterGradedXBlock', {'xblock_id': self._get_xblock_loc()})
+        fragment.add_content(loader.render_django_template(
+            'templates/xblock_jupyter_graded/author_view.html',
+            context= ctx_data,
+            i18n_service=self.runtime.service(self, "i18n"),
+        ))
+        fragment.add_css(loader.load_unicode('public/css/styles.css'))
+        fragment.add_javascript(loader.load_unicode('public/js/author.js'))
+        fragment.add_javascript(self.get_translation_content())
+        fragment.initialize_js('JupyterGradedXBlock', {'xblock_id': self._get_xblock_loc()})
 
-        return frag
+        return fragment
 
     # ----------- Handlers -----------
     @XBlock.handler
     def handle_instructor_nb_upload(self, request, suffix=u''):
         """Handles uploading an instructor notebook"""
+
+        _ = self.runtime.service(self, "i18n").ugettext
+
         log.info("Handling instructor nb upload for course: {}, xblock: {}"\
             .format(str(self.course_id), str(self.location)))
         f = request.params['file']
@@ -236,14 +269,14 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
         # Validate file upload
         error = self.validate_instructor_nb_upload(request)
         if error:
-            return Response(body=json.dumps(error), 
+            return Response(body=json.dumps(error),
                 content_type="application/json", status=200);
 
-	try:
-            # Run Container to get max possible score and generate student 
+        try:
+            # Run Container to get max possible score and generate student
             # version
             max_score = nbu.generate_student_nb(
-                str(self.course_id), str(self.location), f) 
+                str(self.course_id), str(self.location), f)
             self.raw_possible = max_score
             self.nb_name = f.filename
             submitted_dt = timezone.now()
@@ -254,7 +287,7 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
                 self.max_file_size = self._get_default_max_file_size(request)
 
             response = {
-                'success': True, 
+                'success': True,
                 'max_score': "{:0.2f}".format(self.raw_possible),
                 'nb_upload_date': submitted_dt.strftime("%Y-%m-%d %H:%M:%S") + " UTC",
                 'nb_name': self.nb_name,
@@ -262,15 +295,21 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
                 'student_download_url': self._get_nb_url('student')
                 }
 
-	except Exception as e:
+        except Exception as e:
             log.exception(e)
-            response = {'success': False, 'error': str(e)}
-    
+
+            raise_condition ="No Solution Cells Found in uploaded notebook!"\
+            " Are you sure this is the instructor version?"
+            response = {'success': False, 'error': _(raise_condition)} if  str(e) == raise_condition else {'success': False, 'error': str(e)}
+
         return Response(body=json.dumps(response), content_type="application/json", status=200);
 
     @XBlock.handler
     def handle_student_nb_upload(self, request, suffix=u''):
         """Handles uploading a student notebook"""
+
+        _ = self.runtime.service(self, "i18n").ugettext
+
         log.info("Handling student nb upload for course: {}, xblock: {}"\
             .format(str(self.course_id), str(self.location)))
         # Handle empty file, wrong file type
@@ -279,7 +318,7 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
         # Validate file upload
         error = self.validate_student_nb_upload(request)
         if error:
-            return Response(body=json.dumps(error), 
+            return Response(body=json.dumps(error),
                 content_type="application/json", status=200);
 
         # Get User Info
@@ -289,10 +328,10 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
 
         # Score notebook and record grade
         try:
-            
+
             scores = nbu.autograde_notebook(
                 username, str(self.course_id), str(self.location), f,
-                self.cell_timeout, self.allow_network) 
+                self.cell_timeout, self.allow_network)
             self.student_attempts += 1
             edx_score = Score(raw_earned=scores['total'], raw_possible=self.raw_possible)
             self.set_score(edx_score)
@@ -327,12 +366,15 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
                 'error': str(e)
             }
 
-        return Response(body=json.dumps(response), 
+        return Response(body=json.dumps(response),
                 content_type="application/json", status=200);
 
     @XBlock.handler
     def handle_requirements_upload(self, request, suffix=u''):
         """Handles uploading of requirements.txt"""
+
+        _ = self.runtime.service(self, "i18n").ugettext
+
         log.info("Handling requirements.txt upload for course: {}, xblock: {}"\
             .format(str(self.course_id), str(self.location)))
         try:
@@ -342,38 +384,38 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
             response = {'success': True, 'requirements': "<br>".join(req)}
 
         except Exception as e:
-            response = {'success': False, 'error': str(e)}
-
-        return Response(body=json.dumps(response), 
+            raise_condition = "No File Attached"
+            response = {'success': False, 'error': _(raise_condition)} if  str(e) == raise_condition else {'success': False, 'error': str(e)}
+        return Response(body=json.dumps(response),
                 content_type="application/json", status=200);
 
     def validate_student_nb_upload(self, request):
         """Validate student notebook uploaded file"""
+
+        _ = self.runtime.service(self, "i18n").ugettext
+
         f = request.params['file']
         response = {'success': False}
 
-
         # Check if file attached
         if not hasattr(f, 'filename'):
-            response['error'] = "No File Attached"
+            response['error'] = _("No File Attached")
         # Max file size
         elif f.file.size > self.max_file_size:
-            response['error'] = "File ({:,} B) exceeds max allowed file size of {:,} B"\
-                .format(f.file.size, self.max_file_size)
+            response['error'] = _("File (%(file_size)i B) exceeds max allowed file size of %(max_file_size)i B") % {'file_size': f.file.size , 'max_file_size': self.max_file_size} # TODO: Resice {:,}
+
         # Check number of attempts
         elif self.max_attempts > 0 and self.student_attempts >= self.max_attempts:
-            response['error'] = "Maximum allowed attempts reached"
+            response['error'] = _("Maximum allowed attempts reached")
         # Must end in .ipynb
         elif os.path.splitext(f.filename)[1] != '.ipynb':
-            response['error'] = 'File extension must be .ipynb, not {}'\
-                .format(os.path.splitext(f.filename)[1])
+            response['error'] = _('File extension must be .ipynb, not %(filename)s') % {'filename': os.path.splitext(f.filename)[1]}
         # Notebook name must match
         elif not self.nb_name == f.filename:
-            response['error'] = "Uploaded notebook ({}) must be named: {}"\
-                .format(f.filename, self.nb_name)
+            response['error'] = _("Uploaded notebook (%(filename)s) must be named: %(nb_name)s)") % {'filename': f.filename, 'nb_name' : self.nb_name}
         # Make sure it's not past due
         elif self._is_past_due():
-            response['error'] = "Unable to submit past due date: {}".format(self.due)
+            response['error'] = _("Unable to submit past due date: %(due)s") % {'due' : self.due}
         else:
             response = None
 
@@ -381,16 +423,19 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
 
     def validate_instructor_nb_upload(self, request):
         """Validate instructor notebook uploaded file"""
+
+        _ = self.runtime.service(self, "i18n").ugettext
+
         f = request.params['file']
         response = {'success': False}
 
         # Check if file attached
         if not hasattr(f, 'filename'):
-            response['error'] = "No File Attached"
+            response['error'] = _("No File Attached")
         # Check for proper extension
         elif os.path.splitext(f.filename)[1] != '.ipynb':
-            response['error'] = 'File extension must be .ipynb, not {}'\
-                .format(os.path.splitext(f.filename)[1])
+            response['error'] = _('File extension must be .ipynb, not %(filename)') % {'filename' : os.path.splitext(f.filename)[1]}
+
         else:
             response = None
 
@@ -398,7 +443,7 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
 
     def _get_nb_url(self, nb_type):
         """Return the URL to the appropriate nb download page"""
-        url = None 
+        url = None
 
         if nb_type == 'student':
             name = 'jupyter_student_dl'
@@ -414,7 +459,7 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
         if self.nb_name:
             url = reverse("{}:{}".format(app_name, name),
                 kwargs={
-                    'course_id': str(self.course_id), 
+                    'course_id': str(self.course_id),
                     'unit_id': str(self.location),
                     'filename': os.path.splitext(self.nb_name)[0]
                 }
@@ -487,3 +532,13 @@ class JupyterGradedXBlock(StudioEditableXBlockMixin, ScorableXBlockMixin,
              """),
         ]
 
+
+    def init_emulation(self):
+        """
+        Emulation of init function, for translation purpose.
+        """
+        if not self.skip_flag:
+            _ = self.runtime.service(self, "i18n").ugettext
+            #     self.display_name = _(self.display_name)
+            self.fields['display_name']._default = _(self.fields['display_name']._default)
+            self.skip_flag = True
