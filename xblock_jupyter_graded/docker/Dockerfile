@@ -1,4 +1,4 @@
-FROM python:latest
+FROM python:3.8
 ARG PACKAGES
 RUN apt-get update
 RUN apt-get -y install libatlas-base-dev libblas3 liblapack3 liblapack-dev libblas-dev gfortran
