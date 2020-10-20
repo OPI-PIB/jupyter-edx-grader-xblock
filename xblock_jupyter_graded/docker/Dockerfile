@@ -1,7 +1,7 @@
 FROM python:latest
 ARG PACKAGES
 RUN apt-get update
-RUN apt-get install libatlas-base-dev libblas3 liblapack3 liblapack-dev libblas-dev gfortran
+RUN apt-get -y install libatlas-base-dev libblas3 liblapack3 liblapack-dev libblas-dev gfortran
 RUN pip install --upgrade pip &&  pip install nbgrader
 RUN python3 -m venv /home/temp_env
 RUN /home/temp_env/bin/pip install $PACKAGES
