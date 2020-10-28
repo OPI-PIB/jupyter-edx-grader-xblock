@@ -85,7 +85,7 @@ def _run_assign_container(nb_filename, course_id, unit_id):
     cont_release_path = os.path.join(CONT_ROOT, RELEASE, 'ps1')
 
     cmd = [
-        'sudo', '-u', 'jupyter', 'docker', 'run', '-t',
+        'docker', 'run', '-t',
         '-v', "{}:{}".format(host_source_path, cont_source_path),
         '-v', "{}:{}".format(host_release_path, cont_release_path),
         course_id.lower(), 'python', '/home/jupyter/run_grader.py',
@@ -142,7 +142,7 @@ def _run_autograde_container(nb_filename, course_id, unit_id, username,
         cont_config_path = os.path.join("/etc", "jupyter", "nbgrader_config.py")
 
         cmd = [
-            'sudo', '-u', 'jupyter', 'docker', 'run', '-t',
+            'docker', 'run', '-t',
             '-v', "{}:{}:ro".format(host_source_path, cont_source_path),
             '-v', "{}:{}:ro".format(host_submitted_path, cont_submitted_path),
             '-v', "{}:{}".format(host_autograded_path, cont_autograded_path),
