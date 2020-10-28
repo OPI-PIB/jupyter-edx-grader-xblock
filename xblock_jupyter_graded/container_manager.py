@@ -118,7 +118,7 @@ class ContainerManager(object):
         # building at the same time
 
         cmd = [
-            'sudo', '-u', 'jupyter', 'docker', 'build', dockerfile_path,
+            'docker', 'build', dockerfile_path,
             '-t', self.course_id.lower(),
             '--build-arg', 'PACKAGES={}'.format(pkg_str)
         ]
@@ -152,7 +152,6 @@ class ContainerManager(object):
     def container_exists(self):
         """Returns True if a container image exists"""
         cmd = [
-            'sudo', '-u', 'jupyter',
             'docker', 'inspect', '--type=image', self.course_id
         ]
         p = Popen(cmd, stdout=PIPE, stderr=PIPE)
@@ -164,7 +163,7 @@ class ContainerManager(object):
         """Runs `docker system prune -f` to remove dangling images"""
         log.info("Cleaning up dangling docker images via docker system prune")
         cmd = [
-            'sudo', '-u', 'jupyter', 'docker', 'system', 'prune', '-f',
+           'docker', 'system', 'prune', '-f',
         ]
         p = Popen(cmd, stdout=PIPE, stderr=PIPE)
         out, err = p.communicate()
