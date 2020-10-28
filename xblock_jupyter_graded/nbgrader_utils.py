@@ -92,7 +92,10 @@ def _run_assign_container(nb_filename, course_id, unit_id):
         '--cmd', 'assign',
         '--nbname', nb_filename,
     ]
-    p = Popen(cmd, stderr=PIPE, stdout=PIPE)
+    
+    local_env = os.environ.copy()
+    
+    p = Popen(cmd, stderr=PIPE, stdout=PIPE, env=local_env )
     out, err = p.communicate()
 
     if p.returncode != 0:
@@ -161,8 +164,10 @@ def _run_autograde_container(nb_filename, course_id, unit_id, username,
             '--nbname', nb_filename,
             '--username', username,
         ]
+        
+        local_env = os.environ.copy()
 
-        p = Popen(cmd, stderr=PIPE, stdout=PIPE)
+        p = Popen(cmd, stderr=PIPE, stdout=PIPE, env=local_env)
         out, err = p.communicate()
 
         if p.returncode != 0:
