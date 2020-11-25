@@ -30,8 +30,15 @@ setup(
     ],
     install_requires=[
         'XBlock',
-        'nbgrader',
-        'nbformat'
+        'nbformat==4.4',
+        'notebook==5.7.8',
+        'jupyter_client==5.3.4',
+        'jupyter-console==5.2.0',
+        'ipykernel==4.10.1',
+        'ipython==5.9.0',
+        'zipp==1.2.0',
+        'jsonschema==2.5.1',
+        'qtconsole==4.7.5'
     ],
     entry_points={
         'xblock.v1': [
